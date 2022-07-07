@@ -72,6 +72,8 @@ def plot_line(ldf,                     # input dataframe
         fig.show(renderer="svg")
 ```
 
+- Assemble some sample <code>time-series</code> data
+
 ```python
 # Closing share price of APPLE and MICROSOFT
 shares_aapl = pdr.DataReader('AAPL', 'yahoo', start='2021-01-01', end='2021-12-31')['Close']
@@ -80,4 +82,25 @@ shares_msft = pdr.DataReader('MSFT', 'yahoo', start='2021-01-01', end='2021-12-3
 shares_df = pd.concat([shares_aapl,shares_msft],axis=1)
 shares_df.columns = ['AAPL','MSFT']
 shares_df.head()
+```
+
+```python
+
+# Closing share price of APPLE and MICROSOFT
+shares_aapl = pdr.DataReader('AAPL', 'yahoo', start='2021-01-01', end='2021-12-31')['Close']
+shares_msft = pdr.DataReader('MSFT', 'yahoo', start='2021-01-01', end='2021-12-31')['Close']*0.0001
+
+# create dataset
+shares_df = pd.concat([shares_aapl,shares_msft],axis=1)
+shares_df.columns = ['AAPL','MSFT']
+shares_df.head()
+
+- Plot <code>AAPL</code> on y-axis #1 & <code>MSFT</code> on y-axis #2
+
+plot_line(shares_df,['AAPL','MSFT'],
+          title='Closing Share Price of Microsoft & Apple',
+          interactive=True,
+          sec_id=[False,True],
+          tight_layout=False)
+
 ```
